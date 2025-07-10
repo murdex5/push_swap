@@ -110,14 +110,18 @@ This method ensures that every move is the most efficient one possible at that m
 $ ARG="8 5 3 9 2 1"; ./push_swap $ARG
 pb
 pb
+rrb
 pb
+ra
 sa
-pb
+rra
+pa
 ra
 pa
 pa
-pa
-pa
+rra
+rra
+rra
 
 # Check if the output correctly sorts the stack
 $ ./push_swap $ARG | ./checker $ARG
