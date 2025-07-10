@@ -129,7 +129,7 @@ OK
 
 # Count the number of instructions
 $ ./push_swap $ARG | wc -l
-      10
+      14
 ```
 
 ## ✍️ Author
