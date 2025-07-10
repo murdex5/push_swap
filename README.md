@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-  <em>Sorting a stack of integers with a limited set of operations.</em>
+  <em>Sorting a stack of integers with a limited set of operations using the Mechanical Turk algorithm.</em>
 </p>
 
 <p align="center">
@@ -15,7 +15,7 @@
 - [About The Project](#-about-the-project)
 - [The Challenge](#-the-challenge)
 - [Allowed Operations](#-allowed-operations)
-- [The Algorithm](#-the-algorithm)
+- [The Algorithm: Mechanical Turk](#-the-algorithm-mechanical-turk)
 - [How To Use](#-how-to-use)
 - [Example](#-example)
 - [Author](#-author)
@@ -52,18 +52,26 @@ Only the following operations are permitted to manipulate the stacks:
 |    `rrb`  | **Reverse rotate b**: Shifts all elements of stack `b` down by one. The last becomes the first. |
 |    `rrr`  | Performs `rra` and `rrb` at the same time.                                |
 
-## 🧠 The Algorithm
+## 🧠 The Algorithm: Mechanical Turk
 
-The sorting strategy depends on the size of the stack:
+This project implements the **Mechanical Turk algorithm**, an efficient strategy for solving the `push_swap` problem.
 
--   **For small stacks (2, 3, or 5 numbers):** A set of hardcoded, optimal instructions is used to sort the numbers quickly.
+1.  **Initial Push to B**: All numbers from stack `a` are pushed to stack `b`, except for the last three. This leaves stack `a` with three numbers, which can be easily sorted.
 
--   **For larger stacks:** A "chunking" or "radix-like" approach is implemented:
-    1.  **Indexing**: First, the numbers are assigned a sorted index.
-    2.  **Push to B**: Numbers are pushed from stack `a` to stack `b` in chunks. For example, the first chunk might contain the first 20 numbers (by index). This is done until stack `a` only contains a few sorted elements.
-    3.  **Push back to A**: The algorithm then finds the "cheapest" number in stack `b` to move back to `a`. The cost is calculated based on the number of rotations needed to bring that number to the top of `b` and prepare `a` for its arrival. This process is repeated until stack `b` is empty and `a` is fully sorted.
+2.  **Sort the Trio**: The three remaining numbers in stack `a` are sorted using a simple, optimal set of instructions. This creates a small, sorted base to build upon.
 
-This method ensures that the numbers are pushed back to `a` in the correct order efficiently.
+3.  **Cost Calculation**: For each number in stack `b`, the algorithm calculates the "cost" of moving it to its correct position in stack `a`. The cost is the total number of rotations required to:
+    -   Bring the target number to the top of stack `b`.
+    -   Rotate stack `a` so that the number can be inserted in the correct sorted position.
+    The algorithm intelligently checks for combined rotations (`rr` and `rrr`) to find the most efficient path.
+
+4.  **Find the Cheapest Move**: The algorithm identifies the number in stack `b` that has the lowest cost to move.
+
+5.  **Execute and Repeat**: The cheapest set of rotations is executed, followed by a `pa` to move the number from `b` to `a`. This process is repeated until stack `b` is empty.
+
+6.  **Final Rotation**: Once all numbers are sorted in stack `a`, a final series of rotations may be needed to bring the smallest element to the very top.
+
+This method ensures that every move is the most efficient one possible at that moment, leading to a low total instruction count.
 
 ## 🚀 How To Use
 
